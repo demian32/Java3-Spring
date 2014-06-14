@@ -1,3 +1,4 @@
+//PASO 4
 package com.castillo.web;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
