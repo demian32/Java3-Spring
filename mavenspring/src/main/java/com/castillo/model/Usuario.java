@@ -6,35 +6,51 @@
 
 package com.castillo.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="usuario")
 public class Usuario {
-private String nombre;
-private String paterno;
-private String usuario;
+@Id
+@Column(name="login")
+private String login;
+@Column(name="password")
 private String password;
-private char rol_admin;
 
-    public String getNombre() {
-        return nombre;
+@Column(name="admin_rol")
+private Character admin_rol;
+
+    public Usuario() {
+    }
+/**
+ * Este constructor inicializa un objeto de tipo usuario a generarse como mapeo a la tabla usuario
+ * @param login Mapeo a la columna login
+ * @param password Mapeo a la columna password
+ * @param admin_rol  Mapeo a la Columna admin_rol
+ */
+    public Usuario(String login, String password, Character admin_rol) {
+        this.login = login;
+        this.password = password;
+        this.admin_rol = admin_rol;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Character getAdmin_rol() {
+        return admin_rol;
     }
 
-    public String getPaterno() {
-        return paterno;
+    public void setAdmin_rol(Character admin_rol) {
+        this.admin_rol = admin_rol;
     }
 
-    public void setPaterno(String paterno) {
-        this.paterno = paterno;
+    public String getLogin() {
+        return login;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -45,11 +61,40 @@ private char rol_admin;
         this.password = password;
     }
 
-    public char getRol_admin() {
-        return rol_admin;
+    @Override
+    public String toString() {
+        return "Usuario{" + "login=" + login + ", password=" + password + ", admin_rol=" + admin_rol + '}';
     }
 
-    public void setRol_admin(char rol_admin) {
-        this.rol_admin = rol_admin;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.login != null ? this.login.hashCode() : 0);
+        hash = 79 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 79 * hash + (this.admin_rol != null ? this.admin_rol.hashCode() : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        if ((this.login == null) ? (other.login != null) : !this.login.equals(other.login)) {
+            return false;
+        }
+        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
+            return false;
+        }
+        if (this.admin_rol != other.admin_rol && (this.admin_rol == null || !this.admin_rol.equals(other.admin_rol))) {
+            return false;
+        }
+        return true;
+    }
+    
+
 }
