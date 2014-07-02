@@ -6,6 +6,9 @@
 
 package com.castillo.web;
 
+import com.castillo.model.DAOUsuarioImple;
+import com.castillo.model.Usuario;
+import java.util.ArrayList;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +37,8 @@ public class ControllerUsuario {
     return null;
 }
 
+@RequestMapping(value="/arreglo", method=RequestMethod.GET, headers=("Accept=Application/json"))
+@ResponseBody ArrayList<Usuario> ete(){
+    return DAOUsuarioImple.Implementar();
+} 
 }

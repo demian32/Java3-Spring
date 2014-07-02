@@ -6,43 +6,47 @@
 
 package com.castillo.model;
 
+import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author T107
+ */
 @Entity
-@Table(name="usuario")
-public class Usuario {
-@Id
-@Column(name="login")
-private String login;
-@Column(name="password")
-private String password;
-
-@Column(name="admin_rol")
-private Character admin_rol;
+@Table(name = "usuario")
+@NamedQueries({
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
+public class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "login")
+    private String login;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
+    @Basic(optional = false)
+    @Column(name = "admin_rol")
+    private String adminRol;
 
     public Usuario() {
     }
-/**
- * Este constructor inicializa un objeto de tipo usuario a generarse como mapeo a la tabla usuario
- * @param login Mapeo a la columna login
- * @param password Mapeo a la columna password
- * @param admin_rol  Mapeo a la Columna admin_rol
- */
-    public Usuario(String login, String password, Character admin_rol) {
+
+    public Usuario(String login) {
+        this.login = login;
+    }
+
+    public Usuario(String login, String password, String adminRol) {
         this.login = login;
         this.password = password;
-        this.admin_rol = admin_rol;
-    }
-
-    public Character getAdmin_rol() {
-        return admin_rol;
-    }
-
-    public void setAdmin_rol(Character admin_rol) {
-        this.admin_rol = admin_rol;
+        this.adminRol = adminRol;
     }
 
     public String getLogin() {
@@ -61,40 +65,39 @@ private Character admin_rol;
         this.password = password;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "login=" + login + ", password=" + password + ", admin_rol=" + admin_rol + '}';
+    public String getAdminRol() {
+        return adminRol;
+    }
+
+    public void setAdminRol(String adminRol) {
+        this.adminRol = adminRol;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 79 * hash + (this.login != null ? this.login.hashCode() : 0);
-        hash = 79 * hash + (this.password != null ? this.password.hashCode() : 0);
-        hash = 79 * hash + (this.admin_rol != null ? this.admin_rol.hashCode() : 0);
+        int hash = 0;
+        hash += (login != null ? login.hashCode() : 0);
         return hash;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Usuario other = (Usuario) obj;
-        if ((this.login == null) ? (other.login != null) : !this.login.equals(other.login)) {
-            return false;
-        }
-        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
-            return false;
-        }
-        if (this.admin_rol != other.admin_rol && (this.admin_rol == null || !this.admin_rol.equals(other.admin_rol))) {
+        Usuario other = (Usuario) object;
+        if ((this.login == null && other.login != null) || (this.login != null && !this.login.equals(other.login))) {
             return false;
         }
         return true;
     }
     
+    
 
+    @Override
+    public String toString() {
+        return "com.castillo.model.Usuario[ login=" + login + " ]";
+    }
+    
 }
